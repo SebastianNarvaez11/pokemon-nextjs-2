@@ -1,16 +1,20 @@
 import { FC } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router'
 import { Layout } from '../../components/layouts';
 import { PokemonDatailResponse } from '../../interfaces';
 import { pokeApi } from '../../api';
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
+import { localFavorites } from '../../utils';
 
 interface Props {
     pokemon: PokemonDatailResponse
 }
 
 const PokemonPage: FC<Props> = ({ pokemon }) => {
+
+    const toggleFavorite = () => {
+        localFavorites.toggleFavorites(pokemon.id)
+    }
 
     return (
         <Layout title={pokemon.name}>
@@ -34,7 +38,7 @@ const PokemonPage: FC<Props> = ({ pokemon }) => {
                             <Text h1 transform='capitalize'>
                                 {pokemon.name}
                             </Text>
-                            <Button color='gradient' ghost>
+                            <Button color='gradient' ghost onPress={toggleFavorite}>
                                 Guardar En Favorios
                             </Button>
                         </Card.Header>
@@ -70,8 +74,6 @@ const PokemonPage: FC<Props> = ({ pokemon }) => {
                     </Card>
                 </Grid>
             </Grid.Container>
-
-
         </Layout>
     )
 }
