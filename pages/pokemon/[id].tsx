@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Layout } from '../../components/layouts';
 import { PokemonDatailResponse } from '../../interfaces';
@@ -12,9 +12,18 @@ interface Props {
 
 const PokemonPage: FC<Props> = ({ pokemon }) => {
 
+    const [isFavorite, setIsFavorite] = useState(false)
+
+    useEffect(() => {
+        setIsFavorite(localFavorites.existInFavorites(pokemon.id))
+    }, [pokemon.id])
+    
+
     const toggleFavorite = () => {
         localFavorites.toggleFavorites(pokemon.id)
+        setIsFavorite(!isFavorite)
     }
+
 
     return (
         <Layout title={pokemon.name}>
@@ -38,8 +47,8 @@ const PokemonPage: FC<Props> = ({ pokemon }) => {
                             <Text h1 transform='capitalize'>
                                 {pokemon.name}
                             </Text>
-                            <Button color='gradient' ghost onPress={toggleFavorite}>
-                                Guardar En Favorios
+                            <Button color='gradient' ghost={isFavorite} onPress={toggleFavorite}>
+                                {isFavorite ? 'En Favoritos' : 'Guardar En Favorios'}
                             </Button>
                         </Card.Header>
                         <Card.Body>
@@ -80,7 +89,7 @@ const PokemonPage: FC<Props> = ({ pokemon }) => {
 
 
 
-// se especifica la cantidada de rutas/paginas que van a ser permitidas pra crearlas
+// se especifica la cantidad de rutas/paginas que van a ser permitidas para crearlas
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
     const pokemons151 = [...Array(151)].map((value, index) => (`${index + 1}`))

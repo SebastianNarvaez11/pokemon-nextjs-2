@@ -1,3 +1,6 @@
+import { pokeApi } from "../api";
+import { PokemonDatailResponse } from "../interfaces";
+
 const toggleFavorites = (id: number) => {
 
     console.log('toggle favorite llamado');
@@ -13,6 +16,16 @@ const toggleFavorites = (id: number) => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
 }
 
+
+const existInFavorites = (id: number): boolean => {
+
+    const favorites: number[] = JSON.parse(localStorage.getItem('favorites') || '[]')
+
+    return favorites.includes(id)
+}
+
+
+
 export default {
-    toggleFavorites
+    toggleFavorites, existInFavorites
 }
