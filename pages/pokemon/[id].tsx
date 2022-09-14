@@ -2,9 +2,8 @@ import { FC, useState, useEffect } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Layout } from '../../components/layouts';
 import { PokemonDatailResponse } from '../../interfaces';
-import { pokeApi } from '../../api';
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
-import { localFavorites } from '../../utils';
+import { getPokemonInfo, localFavorites } from '../../utils';
 import confetti from 'canvas-confetti'
 
 interface Props {
@@ -106,7 +105,7 @@ const PokemonPage: FC<Props> = ({ pokemon }) => {
 // se especifica la cantidad de rutas/paginas que van a ser permitidas para crearlas
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-    const pokemons151 = [...Array(151)].map((value, index) => (`${index + 1}`))
+    const pokemons151 = [...Array(30)].map((value, index) => (`${index + 1}`))
 
     return {
         paths: pokemons151.map(id => ({
@@ -120,17 +119,10 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const { id } = params as { id: string }
-    const { data } = await pokeApi.get<PokemonDatailResponse>(`pokemon/${id}`)
-
-    const pokemon = {
-        id : data.id,
-        name : data.name,
-        sprites : data.sprites
-    }
 
     return {
         props: {
-            pokemon: pokemon
+            pokemon: await getPokemonInfo(id)
         }
     }
 }
