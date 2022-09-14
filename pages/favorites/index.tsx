@@ -1,22 +1,28 @@
-import { Container, Text } from "@nextui-org/react"
-import { FC } from "react"
+import { Card, Container, Grid, Text } from "@nextui-org/react"
+import { FC, useEffect, useState } from "react"
 import { Layout } from "../../components/layouts"
+import { FavoritePokemons, NoFavorites } from "../../components/ui"
+import { localFavorites } from "../../utils"
 
 
 const Favorites: FC = () => {
 
+  const [favoritesPokemons, setFavoritesPokemons] = useState<number[]>([])
+
+  useEffect(() => {
+    setFavoritesPokemons(localFavorites.pokemons)
+  }, [])
+
+
   return (
     <Layout title="Favoritos">
-      <Container css={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: 'calc(100vh - 100px)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center'
-      }}>
-        <Text h1>No hay favoritos</Text>
-      </Container>
+      {favoritesPokemons.length === 0
+        ?
+        <NoFavorites />
+        :
+        <FavoritePokemons pokemons={favoritesPokemons}/>
+      }
+
     </Layout>
   )
 }
