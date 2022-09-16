@@ -1,6 +1,7 @@
 import Head from "next/head"
-import { FC, PropsWithChildren, ReactNode } from "react"
+import { FC, ReactNode } from "react"
 import { Navbar } from "../ui"
+import { Sidebar } from "../ui/Sidebar"
 
 interface Props {
     title?: string
@@ -17,11 +18,18 @@ export const Layout: FC<Props> = ({ title, children }) => {
                 <meta name="keywords" content="xxxxx, pokemon, pokedex" />
             </Head>
 
-            <Navbar />
-
-            <main style={{ padding: '0px 20px' }}>
-                {children}
-            </main>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <Sidebar />
+                <main style={{ width: '90%', display: 'flex', flexDirection: 'row' }}>
+                    <div style={{ width: '80%' }}>
+                        <Navbar />
+                        {children}
+                    </div>
+                    <div style={{ width: '20%', height: '100%' }}>
+                        <h1>hola</h1>
+                    </div>
+                </main>
+            </div>
         </>
     )
 }
