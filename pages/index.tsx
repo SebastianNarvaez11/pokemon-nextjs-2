@@ -16,7 +16,7 @@ const HomePage: FC<Props> = ({ pokemons }) => {
     <>
       <Layout title='Listado de Pokemons'>
 
-        <Grid.Container gap={2} justify='flex-start'>
+        <Grid.Container gap={2} css={{height: '350px', width: '100%', overflow: 'auto', flexWrap: 'nowrap', paddingBottom: 70, paddingRight: 70}}>
           {pokemons.map(pokemon => (
             <PokemonCard key={pokemon.id} pokemon={pokemon} />
           ))}

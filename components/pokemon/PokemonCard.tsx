@@ -18,21 +18,19 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
 
     return (
-        <Grid xs={6} sm={3} md={2} xl={1} key={pokemon.id}>
-            <Card isHoverable isPressable onPress={onClick}>
-                <Card.Body css={{ padding: 1 }}>
-                    <Card.Image
-                        src={pokemon.img}
-                        width='100%'
-                        height={140} />
-                </Card.Body>
-                <Card.Footer>
-                    <Row justify='space-between'>
-                        <Text transform='capitalize'>{pokemon.name}</Text>
-                        <Text>#{pokemon.id}</Text>
-                    </Row>
-                </Card.Footer>
-            </Card>
-        </Grid>
+        <Card isHoverable isPressable onPress={onClick} key={pokemon.id} css={{display: 'inline-table', marginRight: 80}}>
+            <Card.Body css={{ padding: 1 }}>
+                <Card.Image
+                    src={pokemon.img}
+                    width={200}
+                    height={200} />
+            </Card.Body>
+            <Card.Footer>
+                <Row justify='space-between'>
+                    <Text transform='capitalize'>{pokemon.name}</Text>
+                    <Text>#{pokemon.id}</Text>
+                </Row>
+            </Card.Footer>
+        </Card>
     )
 }
