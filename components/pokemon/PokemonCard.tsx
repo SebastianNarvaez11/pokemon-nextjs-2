@@ -1,6 +1,7 @@
+import { FC, useContext } from "react"
+
 import { Card, Grid, Row, Text } from "@nextui-org/react"
-import { useRouter } from "next/router"
-import { FC } from "react"
+import { UIContext } from "../../context/ui"
 import { SmallPokemon } from "../../interfaces"
 
 interface Props {
@@ -10,15 +11,11 @@ interface Props {
 
 export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
-    const router = useRouter()
-
-    const onClick = () => {
-        router.push(`name/${pokemon.name}`)
-    }
+    const { setPokemonSelected } = useContext(UIContext)
 
 
     return (
-        <Card isHoverable isPressable onPress={onClick} key={pokemon.id} css={{display: 'inline-table', marginRight: 80}}>
+        <Card isHoverable isPressable onPress={() => setPokemonSelected(pokemon)} key={pokemon.id} css={{ display: 'inline-table', marginRight: 80 }}>
             <Card.Body css={{ padding: 1 }}>
                 <Card.Image
                     src={pokemon.img}
