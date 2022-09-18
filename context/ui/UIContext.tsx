@@ -4,7 +4,7 @@ import { SmallPokemon } from "../../interfaces";
 
 
 interface PropsContext {
-    pokemonSelected: SmallPokemon | {},
+    pokemonSelected: SmallPokemon,
     setPokemonSelected: (payload: SmallPokemon) => void
 }
 

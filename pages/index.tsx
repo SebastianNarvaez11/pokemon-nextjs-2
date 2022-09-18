@@ -26,7 +26,7 @@ const HomePage: FC<Props> = ({ pokemons }) => {
         </Grid.Container>
 
         <Grid.Container css={{ backgroundColor: 'Blue' }}>
-          {JSON.stringify(pokemonSelected) !== '{}' && <Image src={pokemonSelected.img} width={100} height={100}/>}
+          {pokemonSelected.id !== 0 && <Image src={pokemonSelected.img} width={100} height={100}/>}
           
         </Grid.Container>
 

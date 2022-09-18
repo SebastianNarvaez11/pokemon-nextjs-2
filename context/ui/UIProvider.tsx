@@ -6,13 +6,18 @@ import { UIReducer } from "./UIReducer";
 
 // tipado para el estado inicial
 export interface UIState {
-    pokemonSelected: SmallPokemon | {}
+    pokemonSelected: SmallPokemon
 }
 
 
 // estado inicial
 const UI_INITIAL_STATE: UIState = {
-    pokemonSelected: {}
+    pokemonSelected: {
+        name: '',
+        url: '',
+        id: 0,
+        img: ''
+    }
 }
 
 

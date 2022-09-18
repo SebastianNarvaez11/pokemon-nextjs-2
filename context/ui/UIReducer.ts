@@ -3,7 +3,7 @@ import { UIState } from './';
 
 
 type UIActionType =
-    | { type: 'UI - Selected Pokemon', payload: SmallPokemon | {} }
+    | { type: 'UI - Selected Pokemon', payload: SmallPokemon}
     | { type: 'UI - xxxxx' }
 
 
