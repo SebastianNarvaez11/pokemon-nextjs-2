@@ -16,12 +16,12 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
 
     return (
-        <Card isHoverable isPressable onPress={() => dispatch(set_pokemon_selected(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 80 }}>
+        <Card isHoverable isPressable onPress={() => dispatch(set_pokemon_selected(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 50, padding: 10 }}>
             <Card.Body css={{ padding: 1 }}>
                 <Card.Image
                     src={pokemon.img}
-                    width={200}
-                    height={200} />
+                    width={100}
+                    height={100} />
             </Card.Body>
             <Card.Footer>
                 <Row justify='space-between'>

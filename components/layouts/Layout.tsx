@@ -1,5 +1,7 @@
+import { Grid, Image, Text } from "@nextui-org/react"
 import Head from "next/head"
 import { FC, ReactNode } from "react"
+import { useAppSelector } from "../../redux/hooks"
 import { Navbar } from "../ui"
 import { Sidebar } from "../ui/Sidebar"
 
@@ -9,6 +11,9 @@ interface Props {
 }
 
 export const Layout: FC<Props> = ({ title, children }) => {
+
+    const { pokemonSelected } = useAppSelector(state => state.ui)
+
     return (
         <>
             <Head>
@@ -18,18 +23,26 @@ export const Layout: FC<Props> = ({ title, children }) => {
                 <meta name="keywords" content="xxxxx, pokemon, pokedex" />
             </Head>
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Sidebar />
-                <main style={{ width: '90%', display: 'flex', flexDirection: 'row' }}>
-                    <div style={{ width: '80%' }}>
-                        <Navbar />
+            <Grid.Container>
+                <Grid xs={0} sm={0} md={1} lg={1} xl={1} css={{padding: 20, boxShadow: '1px -2px 5px 0px #0000001f'}}>
+                    <Sidebar />
+                </Grid>
+
+                <Grid xs={12} sm={8} md={7} lg={7} xl={7} css={{ flexDirection: 'column'}}>
+                    <Navbar />
+                    <main style={{ padding: 20 }}>
                         {children}
-                    </div>
-                    <div style={{ width: '20%', height: '100%' }}>
-                        <h1>hola</h1>
-                    </div>
-                </main>
-            </div>
+                    </main>
+                </Grid>
+
+                <Grid xs={12} sm={4} md={4} lg={4} xl={4} css={{padding: 20, boxShadow: '-1px -2px 5px 0px #0000001f'}}>
+                    {pokemonSelected.id !== 0 ?
+                        <Image src={pokemonSelected.img} width={'500px'} height={'500px'} />
+                        :
+                        <Text>Seleccione un pokemon</Text>}
+                </Grid>
+
+            </Grid.Container>
         </>
     )
 }
