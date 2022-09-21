@@ -1,20 +1,29 @@
-import { FC, useContext } from 'react'
-import { GetStaticProps } from 'next'
+import { FC, useEffect } from 'react'
+
 import { Layout } from '../components/layouts'
-import { pokeApi } from '../api'
-import { PokemonListResponse, SmallPokemon } from '../interfaces'
 import { Grid, Image } from '@nextui-org/react'
 import { PokemonCard } from '../components/pokemon'
-import { UIContext } from '../context/ui'
 
-interface Props {
-  pokemons: SmallPokemon[]
-}
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { SmallPokemon } from '../interfaces'
+import { fetchPokemons } from '../redux/actions'
 
-const HomePage: FC<Props> = ({ pokemons }) => {
 
-  const { pokemonSelected } = useContext(UIContext)
-  
+
+
+const HomePage: FC = () => {
+
+  const { pokemonSelected } = useAppSelector(state => state.ui)
+  const { pokemons } = useAppSelector(state => state.pokemon)
+
+  const dispatch = useAppDispatch()
+
+
+  useEffect(() => {
+    dispatch(fetchPokemons())
+  }, [])
+
+
   return (
     <>
       <Layout title='Listado de Pokemons'>
@@ -25,9 +34,8 @@ const HomePage: FC<Props> = ({ pokemons }) => {
           ))}
         </Grid.Container>
 
-        <Grid.Container css={{ backgroundColor: 'Blue' }}>
-          {pokemonSelected.id !== 0 && <Image src={pokemonSelected.img} width={100} height={100}/>}
-          
+        <Grid.Container css={{ height: 500 }}>
+          {pokemonSelected.id !== 0 && <Image src={pokemonSelected.img} width={'500px'} height={'500px'} />}
         </Grid.Container>
 
       </Layout>
@@ -36,17 +44,5 @@ const HomePage: FC<Props> = ({ pokemons }) => {
 }
 
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-
-  const { data } = await pokeApi.get<PokemonListResponse>('/pokemon/?limit=151')
-
-  const pokemons: SmallPokemon[] = data.results.map((pokemon, index) => ({ ...pokemon, id: index + 1, img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index + 1}.svg` }))
-
-  return {
-    props: {
-      pokemons: pokemons
-    }
-  }
-}
 
 export default HomePage

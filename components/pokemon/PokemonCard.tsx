@@ -1,8 +1,9 @@
-import { FC, useContext } from "react"
+import { FC } from "react"
 
 import { Card, Grid, Row, Text } from "@nextui-org/react"
-import { UIContext } from "../../context/ui"
 import { SmallPokemon } from "../../interfaces"
+import { set_pokemon_selected } from "../../redux/slices/uiSlice"
+import { useAppDispatch } from "../../redux/hooks"
 
 interface Props {
     pokemon: SmallPokemon
@@ -11,11 +12,11 @@ interface Props {
 
 export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
-    const { setPokemonSelected } = useContext(UIContext)
+    const dispatch = useAppDispatch()
 
 
     return (
-        <Card isHoverable isPressable onPress={() => setPokemonSelected(pokemon)} key={pokemon.id} css={{ display: 'inline-table', marginRight: 80 }}>
+        <Card isHoverable isPressable onPress={() => dispatch(set_pokemon_selected(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 80 }}>
             <Card.Body css={{ padding: 1 }}>
                 <Card.Image
                     src={pokemon.img}
