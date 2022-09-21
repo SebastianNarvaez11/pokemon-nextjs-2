@@ -28,7 +28,7 @@ const HomePage: FC<Props> = ({pokemons}) => {
   useEffect(() => {
     dispatch(getThemeLocalStorage())
     dispatch(set_pokemons(pokemons))
-  }, [])
+  }, [dispatch])
 
 
   return (
