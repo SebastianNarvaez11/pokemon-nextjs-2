@@ -1,14 +1,12 @@
 import { FC, useEffect, useState } from 'react'
+import { GetStaticProps } from 'next'
 
 import { Layout } from '../components/layouts'
-import { Grid, Image, Loading, NextUIProvider } from '@nextui-org/react'
+import { Grid } from '@nextui-org/react'
 import { PokemonCard } from '../components/pokemon'
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { useAppDispatch } from '../redux/hooks'
 import { PokemonListResponse, SmallPokemon } from '../interfaces'
-import { getThemeLocalStorage } from '../redux/actions'
-import { darkTheme, lightTheme } from '../themes'
-import { GetStaticProps } from 'next'
 import { pokeApi } from '../api'
 import { set_pokemons } from '../redux/slices/pokemonSlice'
 
@@ -19,20 +17,16 @@ interface Props {
 
 const HomePage: FC<Props> = ({pokemons}) => {
 
-  const { theme } = useAppSelector(state => state.ui)
-  // const { pokemons } = useAppSelector(state => state.pokemon)
 
   const dispatch = useAppDispatch()
 
 
   useEffect(() => {
-    dispatch(getThemeLocalStorage())
     dispatch(set_pokemons(pokemons))
   }, [dispatch])
 
 
   return (
-    <NextUIProvider theme={theme ? lightTheme : darkTheme}>
       <Layout title='Listado de Pokemons'>
         <Grid.Container gap={2} className='style_scrooll' css={{ height: '250px', width: '100%', overflow: 'auto', overflowY: 'hidden', flexWrap: 'nowrap', paddingBottom: 70, paddingRight: 70 }}>
           {pokemons.map(pokemon => (
@@ -40,12 +34,11 @@ const HomePage: FC<Props> = ({pokemons}) => {
           ))}
         </Grid.Container>
       </Layout>
-    </NextUIProvider>
   )
 }
 
 
-
+// se hace el fetch de los datos en el servidor antes de rendizar
 export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon/?limit=151')

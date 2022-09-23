@@ -4,6 +4,7 @@ import { Card, Grid, Row, Text } from "@nextui-org/react"
 import { SmallPokemon } from "../../interfaces"
 import { set_pokemon_selected } from "../../redux/slices/uiSlice"
 import { useAppDispatch } from "../../redux/hooks"
+import { getPokemonSelectedFull } from "../../redux/actions"
 
 interface Props {
     pokemon: SmallPokemon
@@ -16,7 +17,7 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
 
     return (
-        <Card isHoverable isPressable onClick={() => dispatch(set_pokemon_selected(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 50, padding: 10 }}>
+        <Card isHoverable isPressable onClick={() => dispatch(getPokemonSelectedFull(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 50, padding: 10 }}>
             <Card.Body css={{ padding: 1 }}>
                 <Card.Image
                     src={pokemon.img}

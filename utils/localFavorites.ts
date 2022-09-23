@@ -1,5 +1,5 @@
 import { pokeApi } from "../api";
-import { PokemonDatailResponse } from "../interfaces";
+import { FullPokemon } from "../interfaces";
 
 const toggleFavorites = (id: number) => {
 

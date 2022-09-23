@@ -1,4 +1,4 @@
-export interface PokemonDatailResponse {
+export interface FullPokemon {
     abilities: Ability[];
     base_experience: number;
     forms: Species[];

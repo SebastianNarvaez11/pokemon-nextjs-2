@@ -1,3 +1,5 @@
+import { FullPokemon } from "./pokemon-full";
+
 export interface PokemonListResponse {
     count: number;
     next?: string;
@@ -10,4 +12,5 @@ export interface SmallPokemon {
     url: string;
     id: number;
     img: string;
+    full?: FullPokemon
 }

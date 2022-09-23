@@ -1,9 +1,13 @@
-import { Grid, Image, Text } from "@nextui-org/react"
+import { FC, ReactNode, useEffect } from "react"
 import Head from "next/head"
-import { FC, ReactNode } from "react"
-import { useAppSelector } from "../../redux/hooks"
-import { Navbar } from "../ui"
-import { Sidebar } from "../ui/Sidebar"
+
+import { Grid, Image, NextUIProvider, Text } from "@nextui-org/react"
+import { Navbar, Sidebar } from "../ui"
+
+import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { getThemeLocalStorage } from "../../redux/actions"
+import { darkTheme, lightTheme } from "../../themes"
+
 
 interface Props {
     title?: string
@@ -11,11 +15,17 @@ interface Props {
 }
 
 export const Layout: FC<Props> = ({ title, children }) => {
+    
+    const dispatch = useAppDispatch()
+    
+    const { pokemonSelected, theme } = useAppSelector(state => state.ui)
 
-    const { pokemonSelected } = useAppSelector(state => state.ui)
+    useEffect(() => {
+        dispatch(getThemeLocalStorage())
+      }, [dispatch])
 
     return (
-        <>
+        <NextUIProvider theme={theme ? lightTheme : darkTheme}>
             <Head>
                 <title>{title || "Pokemon App"}</title>
                 <meta name="author" content="Sebas Narvaez" />
@@ -24,18 +34,18 @@ export const Layout: FC<Props> = ({ title, children }) => {
             </Head>
 
             <Grid.Container>
-                <Grid xs={0} sm={0} md={1} lg={1} xl={1} css={{padding: 20, boxShadow: '1px -2px 5px 0px #0000001f'}}>
+                <Grid xs={0} sm={0} md={1} lg={1} xl={1} css={{ padding: 20, boxShadow: '1px -2px 5px 0px #0000001f' }}>
                     <Sidebar />
                 </Grid>
 
-                <Grid xs={12} sm={8} md={7} lg={7} xl={7} css={{ flexDirection: 'column'}}>
+                <Grid xs={12} sm={8} md={7} lg={7} xl={7} css={{ flexDirection: 'column' }}>
                     <Navbar />
                     <main style={{ padding: 20 }}>
                         {children}
                     </main>
                 </Grid>
 
-                <Grid xs={12} sm={4} md={4} lg={4} xl={4} css={{padding: 20, boxShadow: '-1px -2px 5px 0px #0000001f'}}>
+                <Grid xs={12} sm={4} md={4} lg={4} xl={4} css={{ padding: 20, boxShadow: '-1px -2px 5px 0px #0000001f' }}>
                     {pokemonSelected.id !== 0 ?
                         <Image src={pokemonSelected.img} width={'500px'} height={'500px'} />
                         :
@@ -43,6 +53,6 @@ export const Layout: FC<Props> = ({ title, children }) => {
                 </Grid>
 
             </Grid.Container>
-        </>
+        </NextUIProvider>
     )
 }

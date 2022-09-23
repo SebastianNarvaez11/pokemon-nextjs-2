@@ -1,13 +1,13 @@
 import { FC, useState, useEffect } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Layout } from '../../components/layouts';
-import { PokemonDatailResponse } from '../../interfaces';
+import { FullPokemon } from '../../interfaces';
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
 import { getPokemonInfo, localFavorites } from '../../utils';
 import confetti from 'canvas-confetti'
 
 interface Props {
-    pokemon: PokemonDatailResponse
+    pokemon: FullPokemon
 }
 
 const PokemonPage: FC<Props> = ({ pokemon }) => {

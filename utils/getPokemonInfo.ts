@@ -1,10 +1,10 @@
 import { pokeApi } from "../api"
-import { PokemonDatailResponse } from "../interfaces"
+import { FullPokemon } from "../interfaces"
 
 export const getPokemonInfo = async (nameOrId: string) => {
 
     try {
-        const { data } = await pokeApi.get<PokemonDatailResponse>(`pokemon/${nameOrId}`)
+        const { data } = await pokeApi.get<FullPokemon>(`pokemon/${nameOrId}`)
 
         return {
             id: data.id,
