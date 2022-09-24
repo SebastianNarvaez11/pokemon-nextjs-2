@@ -28,7 +28,7 @@ const HomePage: FC<Props> = ({pokemons}) => {
 
   return (
       <Layout title='Listado de Pokemons'>
-        <Grid.Container gap={2} className='style_scrooll' css={{ height: '250px', width: '100%', overflow: 'auto', overflowY: 'hidden', flexWrap: 'nowrap', paddingBottom: 70, paddingRight: 70 }}>
+        <Grid.Container gap={2} className='style_scrooll' css={{ height: '250px', width: '100%', overflow: 'auto', overflowY: 'hidden', flexWrap: 'nowrap', padding:20, paddingBottom: 80 }}>
           {pokemons.map(pokemon => (
             <PokemonCard key={pokemon.id} pokemon={pokemon} />
           ))}

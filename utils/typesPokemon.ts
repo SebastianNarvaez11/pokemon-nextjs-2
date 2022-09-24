@@ -1,4 +1,4 @@
-export const getColorByType = (type: string) => {
+export const getColorByType = (type: string | undefined) => {
     switch (type) {
 
         case "normal":
@@ -61,8 +61,11 @@ export const getColorByType = (type: string) => {
         case "shadow":
             return '#787887'
 
+        case undefined:
+            return 'trasnparent'
+
         default:
-            return "white";
+            return "trasnparent";
     }
 }
 

@@ -17,7 +17,7 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
 
     return (
-        <Card isHoverable isPressable onClick={() => dispatch(getPokemonSelectedFull(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 50, padding: 10 }}>
+        <Card draggable  isHoverable isPressable onClick={() => dispatch(getPokemonSelectedFull(pokemon))} key={pokemon.id} css={{ display: 'inline-table', marginRight: 50, padding: 10 }}>
             <Card.Body css={{ padding: 1 }}>
                 <Card.Image
                     src={pokemon.img}
