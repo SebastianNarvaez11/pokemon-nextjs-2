@@ -1,16 +1,21 @@
 import { useEffect, DragEvent } from 'react'
 import { Grid, Text } from '@nextui-org/react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { PokemonCard } from '../pokemon'
+import { PokemonCardFavorite } from '../pokemon'
 import { SmallPokemon } from '../../interfaces'
 import { addFavoritePokemon, loadFavoritesLocalStorage } from '../../redux/actions'
+
+import styles from '../../styles/Dragging.module.css'
 
 
 export const FavoriteContainer = () => {
 
     const dispatch = useAppDispatch()
 
+    const { isDragging } = useAppSelector(state => state.ui)
     const { pokemonFavorites } = useAppSelector(state => state.pokemon)
+
+
 
     const onDropPokemon = (event: DragEvent) => {
         const pokemon: SmallPokemon = JSON.parse(event.dataTransfer.getData('pokemon'))
@@ -18,19 +23,25 @@ export const FavoriteContainer = () => {
     }
 
 
+
+    const onDragOver = (event : DragEvent) => {
+        if(isDragging === 'pokemon_card'){
+            return event.preventDefault()
+        }
+    }
+ 
+
+
     useEffect(() => {
         dispatch(loadFavoritesLocalStorage())
     }, [])
-    
-
-
 
     return (
         <Grid.Container
             onDrop={onDropPokemon}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={onDragOver}
             gap={2}
-            className='style_scrooll'
+            className={isDragging === 'pokemon_card' ? `${styles.dragging} style_scrooll` : 'style_scrooll'}
             css={{
                 height: '250px',
                 width: '100%',
@@ -49,7 +60,7 @@ export const FavoriteContainer = () => {
                 :
                 <>
                     {pokemonFavorites.map(pokemon => (
-                        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+                        <PokemonCardFavorite key={pokemon.id} pokemon={pokemon} />
                     ))}
                 </>
             }

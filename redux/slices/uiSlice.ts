@@ -1,12 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { SmallPokemon } from '../../interfaces';
+import { type } from 'os';
+
+type DragType =
+    | ''
+    | 'pokemon_card'
+    | 'pokemon_card_favorite'
+
 
 export interface UIState {
     pokemonSelected: SmallPokemon,
     theme: boolean,
-    isDragging: boolean
+    isDragging: DragType
 }
+
+
+
 
 const initialState: UIState = {
     pokemonSelected: {
@@ -16,7 +26,7 @@ const initialState: UIState = {
         url: ''
     },
     theme: true,
-    isDragging: false
+    isDragging: ''
 }
 
 export const uiSlice = createSlice({
@@ -32,7 +42,7 @@ export const uiSlice = createSlice({
             state.pokemonSelected = action.payload
         },
 
-        set_is_dragging: (state, action: PayloadAction<boolean>) => {
+        set_is_dragging: (state, action: PayloadAction<DragType>) => {
             state.isDragging = action.payload
         }
     }

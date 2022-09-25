@@ -28,6 +28,19 @@ export const addFavoritePokemon = (pokemon: SmallPokemon) => (dispatch: AppDispa
 }
 
 
+export const deleteFavoritePokemon = (pokemon: SmallPokemon) => (dispatch: AppDispatch) => {
+
+    let favorites: SmallPokemon[] = JSON.parse(localStorage.getItem('favorites') || '[]')
+
+    const new_favorites: SmallPokemon[] = favorites.filter(poke => poke.id !== pokemon.id)
+
+    localStorage.setItem('favorites', JSON.stringify(new_favorites))
+
+    dispatch(set_favorites(new_favorites))
+
+}
+
+
 
 // export const fetchPokemons = (setIsLoading?: Dispatch<SetStateAction<boolean>>) => async (dispatch: AppDispatch) => {
 

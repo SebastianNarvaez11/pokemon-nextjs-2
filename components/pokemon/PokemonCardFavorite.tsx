@@ -11,7 +11,7 @@ interface Props {
 }
 
 
-export const PokemonCard: FC<Props> = ({ pokemon }) => {
+export const PokemonCardFavorite: FC<Props> = ({ pokemon }) => {
 
 
     const { isDragging } = useAppSelector(state => state.ui)
@@ -20,7 +20,7 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
     const onDragStart = (event: DragEvent) => {
         event.dataTransfer.setData('pokemon', JSON.stringify(pokemon))
-        dispatch(set_is_dragging("pokemon_card"))
+        dispatch(set_is_dragging("pokemon_card_favorite"))
     }
 
     const onDragEnd = () => {
@@ -35,7 +35,7 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onClick={() => dispatch(getPokemonSelectedFull(pokemon))}
-            css={{ display: 'inline-table', marginRight: 50, padding: 10, opacity: isDragging === 'pokemon_card' ? 0.2 : 1, transition: 'all .3s' }}>
+            css={{ display: 'inline-table', marginRight: 50, padding: 10, opacity: isDragging === 'pokemon_card_favorite' ? 0.2 : 1, transition: 'all .3s'}}>
 
             <Card.Body css={{ padding: 1 }}>
                 <Image 
