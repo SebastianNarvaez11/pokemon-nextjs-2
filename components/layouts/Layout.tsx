@@ -42,7 +42,7 @@ export const Layout: FC<Props> = ({ title, children }) => {
 
                 <Grid xs={12} sm={8} md={7} lg={7} xl={7} css={{ flexDirection: 'column' }}>
                     <Navbar />
-                    <main style={{ padding: 20 }}>
+                    <main style={{ padding: 20, paddingLeft: 40 }}>
                         {children}
                     </main>
                 </Grid>
@@ -53,7 +53,6 @@ export const Layout: FC<Props> = ({ title, children }) => {
                         :
                         <Text>Seleccione un pokemon</Text>}
                 </Grid>
-
             </Grid.Container>
         </NextUIProvider>
     )
